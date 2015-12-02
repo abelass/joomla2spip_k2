@@ -1,0 +1,22 @@
+<paquet
+	prefix="joomla2spip_k2"
+	categorie="outil"
+	version="1.0.0"
+	etat="dev"
+	compatibilite="[3.0.21;3.0.*]"
+	logo="prive/themes/spip/images/joomla2spip_k2-64.png"
+	documentation=""
+>
+	<!--
+		Paquet genere le 2015-12-02 17:51:06
+	-->
+
+	<nom>Joomla2spip K2</nom>
+
+	<auteur lien='http://websimple.be'>Rainer</auteur>
+
+	<licence>GNU/GPL</licence>
+
+
+
+</paquet>
