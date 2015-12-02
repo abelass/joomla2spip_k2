@@ -72,6 +72,9 @@ function article_import_k2($mon_article) {
 	// ajouter les extras
 	
 	// les documents attachées
+	foreach($mon_article['document'] AS $document){
+		images/
+	}
 	
 	
 	return $err; 
