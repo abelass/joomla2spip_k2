@@ -7,9 +7,6 @@
 	logo="prive/themes/spip/images/joomla2spip_k2-64.png"
 	documentation=""
 >
-	<!--
-		Paquet genere le 2015-12-02 17:51:06
-	-->
 
 	<nom>Joomla2spip K2</nom>
 
@@ -17,6 +14,7 @@
 
 	<licence>GNU/GPL</licence>
 
+ <necessite nom="joomla2spip" compatibilite="[0.2.3;]" />
 
 
 </paquet>
