@@ -1,0 +1,37 @@
+#CACHE{0}
+
+
+[(#ENV{conversion}|=={navigation}|oui)
+NAVIGATION : 
+<INCLURE{fond=conversion/joomla2spip-convertir_navigation}>
+]
+
+[(#ENV{conversion}|=={articles}|oui)
+ARTICLES : 
+<INCLURE{fond=conversion/joomla2spip-convertir_articles}>
+]
+
+[(#ENV{conversion}|=={navigation_k2}|oui)
+NAVIGATION : 
+<INCLURE{fond=conversion/joomla2spip-convertir_k2categories_navigation}>
+]
+
+[(#ENV{conversion}|=={articles_k2}|oui)
+ARTICLES(Items) : 
+<INCLURE{fond=conversion/joomla2spip-convertir_k2items_articles}>
+]
+
+[(#ENV{conversion}|=={forums}|oui)
+FORUMS : 
+<INCLURE{fond=conversion/joomla2spip-convertir_forums}>
+]
+
+[(#ENV{conversion}|=={urls}|oui)
+URLS : 
+<INCLURE{fond=conversion/joomla2spip-convertir_urls}>
+]
+
+[(#ENV{conversion}|=={utilisateurs}|oui)
+UTILISATEURS : 
+<INCLURE{fond=conversion/joomla2spip-convertir_auteurs}>
+]

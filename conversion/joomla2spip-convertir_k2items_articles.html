@@ -1,0 +1,48 @@
+#CACHE{0}
+[(#REM)
+    script de migration
+    
+    pagination par paquets de 200 pour eviter le timeout 
+
+]
+<INCLURE{fond=inclure/joomla2spip-entete} />
+
+
+<h1>Articles</h1>
+<B_articles><ul>
+<BOUCLE_articles(jos_k2_items){pagination 200}>
+  <li>  
+  <strong>#TITLE*</strong>  
+  <div class="log_short">
+  	#SET{document,#ARRAY{}}
+    <BOUCLE_documents(jos_k2_attachments){item_id=#ID}><div>document : #TITLE #TITLE</div>#SET{document,#GET{document}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ARRAY{fichier,#FILENAME,titre,#TITLE}}}} </BOUCLE_documents>  
+    <BOUCLE_rubrique(jos_k2_categories){id=#CATID}><div>rubrique : #NAME #TITLE</div>#SET{rubrique,#TITLE} </BOUCLE_rubrique>
+  
+    <div>date : #PUBLISH_UP - maj : #MODIFIED</div>  
+    [(#REM) joomla state
+      -2 = publie + en une
+      -1 = archive
+       0 = brouillon
+       1 = publie
+    ]<div>statut : [(#PUBLISHED|=={0}|oui)prop][(#PUBLISHED|=={-2}|oui)publie][(#PUBLISHED|=={1}|oui)publie]</div>   
+    [(#PUBLISHED|=={0}|oui)#SET{statut,prop}][(#PUBLISHED|=={-2}|oui)#SET{statut,publie}][(#PUBLISHED|=={1}|oui)#SET{statut,publie}]   
+    <div>visites : #HITS</div>
+  </div>
+  
+  [(#SET{descriptif,''})]  
+  [(#SET{titre_original,[(#FULLTEXT*|joomla2spip_nettoyer_texte{titre})]})]
+  [(#SET{chapo,[(#FULLTEXT*|joomla2spip_nettoyer_texte{chapo})]})]
+  [(#REM) on merge l'introtext+fulltext de joomla pour obtenir texte de spip]  
+  [(#SET{texte,[(#INTROTEXT*|joomla2spip_nettoyer_texte)][(#FULLTEXT*|joomla2spip_nettoyer_texte)]})]
+
+  [(#REM) importer l'article]
+  [(#SET{mon_article,#ARRAY{rubrique,#GET{rubrique},date,#PUBLISH_UP,maj,#MODIFIED,statut,#GET{statut},visites,#HITS,titre,#TITLE*,descriptif,#GET{descriptif},ps,#GET{titre_original},chapo,#GET{chapo},texte,#GET{texte},id_article,#ID,document,#GET{document}}})]
+  [(#GET{mon_article}|article_import_k2)]
+  </li>
+</BOUCLE_articles>
+</ul>
+<p>#TOTAL_BOUCLE articles importés - #PAGINATION - #GRAND_TOTAL</p>
+
+
+</B_articles>
+<INCLURE{fond=inclure/joomla2spip-pied} />
