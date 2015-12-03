@@ -72,11 +72,26 @@ function article_import_k2($mon_article) {
 	// ajouter les extras
 	
 	// les documents attachées
-	foreach($mon_article['document'] AS $document){
-		images/
+	if(isset($mon_article['document']) and count($mon_article['document']) > 0) {
+		$ajouter_documents = charger_fonction('ajouter_documents', 'action');
+		$copie_local = charger_fonction('copier_local', 'action');
+		include_spip('inc/joindre_document');
+		include_spip('formulaires/joindre_document');
+		foreach($mon_article['document'] AS $document){
+			$file = url_absolue('media/k2/attachments/' . $document['fichier']);
+			spip_log($file,'teste');
+			set_request('joindre_distant',true);
+			set_request('url',$file);
+			$files = joindre_trouver_fichier_envoye();
+			$mode = joindre_determiner_mode('auto','new','article');
+			$nouveaux_doc = $ajouter_documents('new',$files,'article',$id_article,$mode);
+			spip_log($nouveaux_doc,'teste');
+			$id_document = $nouveaux_doc[0];
+			$copie_local($id_document );
+			$titre = isset($document['titre']) ? $document['titre'] :'';
+			sql_updateq('spip_documents',array('titre'=>$titre),'id_document=' . $id_document);
+		}
 	}
-	
-	
 	return $err; 
 }
 

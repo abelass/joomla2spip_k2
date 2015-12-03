@@ -15,9 +15,8 @@
   <strong>#TITLE*</strong>  
   <div class="log_short">
   	#SET{document,#ARRAY{}}
-    <BOUCLE_documents(jos_k2_attachments){item_id=#ID}><div>document : #TITLE #TITLE</div>#SET{document,#GET{document}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ARRAY{fichier,#FILENAME,titre,#TITLE}}}} </BOUCLE_documents>  
+    <BOUCLE_documents(jos_k2_attachments){itemid=#ID}><div>document : #TITLE #TITLE</div>#SET{document,#GET{document}|array_merge{#ARRAY{#COMPTEUR_BOUCLE,#ARRAY{fichier,#FILENAME,titre,#TITLE}}}} </BOUCLE_documents>
     <BOUCLE_rubrique(jos_k2_categories){id=#CATID}><div>rubrique : #NAME #TITLE</div>#SET{rubrique,#TITLE} </BOUCLE_rubrique>
-  
     <div>date : #PUBLISH_UP - maj : #MODIFIED</div>  
     [(#REM) joomla state
       -2 = publie + en une
@@ -27,6 +26,16 @@
     ]<div>statut : [(#PUBLISHED|=={0}|oui)prop][(#PUBLISHED|=={-2}|oui)publie][(#PUBLISHED|=={1}|oui)publie]</div>   
     [(#PUBLISHED|=={0}|oui)#SET{statut,prop}][(#PUBLISHED|=={-2}|oui)#SET{statut,publie}][(#PUBLISHED|=={1}|oui)#SET{statut,publie}]   
     <div>visites : #HITS</div>
+<B_docs>
+    <div>Documents:</div>
+    <ul> 
+    <BOUCLE_docs(DATA){source tableau, #GET{document}}>
+    	<li>
+    		[(#FICHIER)] - #TITRE
+    	</li>
+    </BOUCLE_docs>  
+    </ul>   
+    </B_docs>
   </div>
   
   [(#SET{descriptif,''})]  
